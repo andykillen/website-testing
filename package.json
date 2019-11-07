@@ -1,0 +1,15 @@
+{
+    "name": "rnw-child-theme",
+    "version": "1.0.0",
+    "description": "Glup setup",
+    "dependencies": {
+        "gulp": "^3.9.1",
+        "gulp-concat": "*",
+        "gulp-cli": "2.0.1",
+        "gulp-rename": "^1.2.3",
+        "gulp-sourcemaps": "*",
+        "gulp-uglify": "*",
+        "gulp-watch": "*",
+        "streamqueue": "*"
+    }
+}
