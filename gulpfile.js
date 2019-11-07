@@ -6,7 +6,7 @@ var watch = require('gulp-watch');
 var uglify = require('gulp-uglify');
 // var autoprefixer = require('gulp-autoprefixer');
 var rename = require("gulp-rename");
-var gutil = require("gulp-util");
+// var gutil = require("gulp-util");
 var streamqueue  = require('streamqueue');
 
 
@@ -20,8 +20,7 @@ function errorHandler (error) {
 
 // destination ./ puts into ./js directory.  
 // it writes the file 3 times. normal, minified, minified with sourcemap
-gulp.task('js', function(){
-  
+function js (){
   return gulp.src('src/*.js')
     .pipe(gulp.dest('./js'))
     .pipe(uglify().on('error',errorHandler ))
@@ -33,27 +32,27 @@ gulp.task('js', function(){
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('./js'))
     ;
-});
+};
 
-gulp.task('combiner', function(){
+function combiner(){
   return streamqueue({ objectMode: true },
-    gulp.src('./src/elements.js'),
-    gulp.src('./src/testing.js'),
-    gulp.src('./src/reporting.js'),
-    gulp.src('./src/manager.js')
-    
-)
+      gulp.src('./src/elements.js'),
+      gulp.src('./src/testing.js'),
+      gulp.src('./src/reporting.js'),
+      gulp.src('./src/manager.js'))
     .pipe(concat('app.js'))
     .pipe(gulp.dest('./'))
     .on('error', errorHandler);
-});
+};
 
-gulp.task('default', [ 'js', 'combiner' ]);
+gulp.task('default', gulp.series(js,combiner));
 
 gulp.task('watch', function(){
   // gulp.watch('assets/**/*.scss', ['css']);
-  gulp.watch('src/*.js', ['js']);
-  gulp.watch('js/*.js', ['combiner']);
+  gulp.watch('src/*.js', gulp.series(js ,combiner));
+    
+  
+  gulp.watch('js/*.js', gulp.series(combiner));
   
 });
 
