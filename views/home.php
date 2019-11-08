@@ -1,9 +1,10 @@
 <!doctype html>
 <html>
     <head>
-        <title><?php $this->title ?></title>
+        <meta charset='utf-8'/>
+        <title><?php echo $this->title ?></title>
     </head>
     <body>
-
+        <h1><?php echo $this->title ?></h1>
     </body>
 </html>

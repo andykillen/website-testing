@@ -41,7 +41,7 @@ function combiner(){
       gulp.src('./assets/reporting.js'),
       gulp.src('./assets/manager.js'))
     .pipe(concat('testing.js'))
-    .pipe(gulp.dest('./public_html/js/'))
+    .pipe(gulp.dest('./public/js/'))
     .on('error', errorHandler);
 };
 
