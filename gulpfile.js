@@ -21,7 +21,7 @@ function errorHandler (error) {
 // destination ./ puts into ./js directory.  
 // it writes the file 3 times. normal, minified, minified with sourcemap
 function js (){
-  return gulp.src('src/*.js')
+  return gulp.src('assets/*.js')
     .pipe(gulp.dest('./js'))
     .pipe(uglify().on('error',errorHandler ))
       .pipe(rename({ extname: '.min.js' }))
@@ -36,12 +36,12 @@ function js (){
 
 function combiner(){
   return streamqueue({ objectMode: true },
-      gulp.src('./src/elements.js'),
-      gulp.src('./src/testing.js'),
-      gulp.src('./src/reporting.js'),
-      gulp.src('./src/manager.js'))
-    .pipe(concat('app.js'))
-    .pipe(gulp.dest('./'))
+      gulp.src('./assets/elements.js'),
+      gulp.src('./assets/testing.js'),
+      gulp.src('./assets/reporting.js'),
+      gulp.src('./assets/manager.js'))
+    .pipe(concat('testing.js'))
+    .pipe(gulp.dest('./public_html/js/'))
     .on('error', errorHandler);
 };
 
@@ -49,7 +49,7 @@ gulp.task('default', gulp.series(js,combiner));
 
 gulp.task('watch', function(){
   // gulp.watch('assets/**/*.scss', ['css']);
-  gulp.watch('src/*.js', gulp.series(js ,combiner));
+  gulp.watch('assets/*.js', gulp.series(js ,combiner));
     
   
   gulp.watch('js/*.js', gulp.series(combiner));
